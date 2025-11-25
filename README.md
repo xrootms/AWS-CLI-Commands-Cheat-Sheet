@@ -1,5 +1,5 @@
 #  🌈 AWS CLI Commands Cheat Sheet
-
+---
 ## *COMPUTE SERVICES*
 
 ### EC2 (Elastic Compute Cloud)
@@ -33,7 +33,7 @@ aws elasticbeanstalk create-application --application-name my-app               
 aws elasticbeanstalk update-environment --environment-name my-env --version-label new-version    #  Deploy a new version
 ```
 ---
-## STORAGE SERVICES
+## *STORAGE SERVICES*
 
 ### S3 (Simple Storage Service)
 
@@ -91,7 +91,7 @@ aws iam list-roles`                                      # List IAM roles
 aws iam create-role --role-name <name> --assume-role-policy-document file://policy.json          # Create a role
 aws iam list-policies                                     # List policies
 ```
-
+---
 ## *NETWORKING*
 
 ### VPC (Virtual Private Cloud)
@@ -222,8 +222,8 @@ aws logs get-log-events \
   --log-group-name my-log-group \
   --log-stream-name my-log-stream             # Retrieve log events
 ```
-
-## MESSAGING & WORKFLOW
+---
+## *MESSAGING & WORKFLOW*
 
 ### AWS SNS (Simple Notification Service)
 
@@ -249,7 +249,7 @@ aws stepfunctions list-state-machines                       # List all state mac
 aws stepfunctions start-execution \
   --state-machine-arn arn:aws:states:region:account-id:stateMachine:MyStateMachine  # Start execution
 ```
-
+---
 ## DATA & ANALYTICS
 
 ### AWS Glue (ETL Service)
@@ -260,7 +260,7 @@ aws glue get-tables --database-name my-database       # List tables in database
 aws glue start-job-run --job-name my-glue-job         # Start a Glue job
 
 ```
-
+---
 ## *MANAGEMENT TOOLS*
 
 ### AWS Systems Manager (SSM)
@@ -273,8 +273,7 @@ aws ssm send-command --document-name "AWS-RunShellScript" \
 
 ```
 ---
-
-## AWS OUTPOSTS (HYBRID CLOUD)
+## *AWS OUTPOSTS (HYBRID CLOUD)*
 
 ### List and Describe Outposts
 
@@ -297,8 +296,11 @@ aws outposts list-outpost-instances --outpost-id <outpost-id>  # List EC2 instan
 ### Deploy and Configure Outposts
 
 ```css
-aws outposts create-order --line-items "[{\"catalogItemId\": \"item-id\", \"quantity\": 1}]" --outpost-id <outpost-id>  # Order Outpost
-aws outposts update-outpost --outpost-id <outpost-id> --name <new-name>                                                 # Update configuration
+aws outposts create-order \
+  --line-items "[{\"catalogItemId\": \"item-id\", \"quantity\": 1}]" \
+  --outpost-id <outpost-id>                                                # Order Outpost
+
+aws outposts update-outpost --outpost-id <outpost-id> --name <new-name>    # Update configuration
 
 ```
 
