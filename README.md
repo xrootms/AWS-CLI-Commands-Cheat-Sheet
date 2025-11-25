@@ -17,18 +17,19 @@ aws ec2 describe-security-groups                        # List security groups
 ### Lambda (Serverless Computing)
 
 ```css
-aws lambda list-functions                                  # List all Lambda functions
-aws lambda create-function --function-name <name> --runtime <runtime> --role <role> --handler <handler>   # Create a function
-aws lambda update-function-code --function-name <name> --zip-file fileb://<file>.zip   # Update function code
-aws lambda delete-function --function-name <name>          # Delete a function
-aws lambda invoke --function-name <name> output.json       # Invoke a function
+aws lambda list-functions                                                              # List all Lambda functions
+aws lambda create-function --function-name <name> --runtime <runtime> \
+  --role <role> --handler <handler>                                                    # Create a function
+aws lambda update-function-code  --function-name <name>  --zip-file fileb://<file>.zip # Update function code
+aws lambda delete-function --function-name <name>                                      # Delete a function
+aws lambda invoke --function-name <name> output.json                                   # Invoke a function
 ```
 
 ### AWS Elastic Beanstalk
 
-```css
-aws elasticbeanstalk describe-environments                  # List all environments
-aws elasticbeanstalk create-application --application-name my-app     # Create an application
+```css 
+aws elasticbeanstalk describe-environments                                                       # List all environments
+aws elasticbeanstalk create-application --application-name my-app                                # Create an application
 aws elasticbeanstalk update-environment --environment-name my-env --version-label new-version    #  Deploy a new version
 ```
 ---
@@ -47,8 +48,9 @@ aws s3 sync <local-dir> s3://<bucket>/          # Sync local and S3
 ### Amazon ECR (Elastic Container Registry)
 
 ```css
-aws ecr get-login-password | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com   # Authenticate Docker with ECR
-aws ecr list-repositories                       # List all ECR repositories
+aws ecr get-login-password | docker login --username AWS \
+  --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com     # Authenticate Docker with ECR
+aws ecr list-repositories                                              # List all ECR repositories
 ```
 
 ---
@@ -58,12 +60,15 @@ aws ecr list-repositories                       # List all ECR repositories
 ### Amazon EKS (Elastic Kubernetes Service)
 
 ```css
-aws eks list-clusters                                  # List EKS clusters
-aws eks describe-cluster --name my-cluster             # Describe an EKS cluster
-aws eks create-cluster --name my-cluster --role-arn arn:aws:iam::account-id:role/EKSRole --resources-vpc-config subnetIds=subnet-xxxx,securityGroupIds=sg-xxxx    # Create an EKS cluster
-aws eks update-kubeconfig --name my-cluster            # Configure kubectl to use the EKS cluster
-kubectl get nodes                                      # Check worker nodes
-kubectl get pods -A                                    # List running pods
+aws eks list-clusters                                                    # List EKS clusters
+aws eks describe-cluster --name my-cluster                               # Describe an EKS cluster
+aws eks create-cluster \
+  --name my-cluster \
+  --role-arn arn:aws:iam::account-id:role/EKSRole \
+  --resources-vpc-config subnetIds=subnet-xxxx,securityGroupIds=sg-xxxx  # Create an EKS cluster
+aws eks update-kubeconfig --name my-cluster                              # Configure kubectl to use the EKS cluster
+kubectl get nodes                                                        # Check worker nodes
+kubectl get pods -A                                                      # List running pods
 ```
 
 ### Amazon ECS (Elastic Container Service)
@@ -261,47 +266,55 @@ aws glue start-job-run --job-name my-glue-job         # Start a Glue job
 ### AWS Systems Manager (SSM)
 
 ```css
-aws ssm describe-instances - List managed instances
-aws ssm send-command --document-name "AWS-RunShellScript" --targets "Key=instanceIds,Values=i-xxxxxxxxx" --parameters commands="sudo apt update" - Run command
+aws ssm describe-instances                                      # List managed instances
+aws ssm send-command --document-name "AWS-RunShellScript" \
+  --targets "Key=instanceIds,Values=i-xxxxxxxxx" \
+  --parameters commands="sudo apt update"                       # Run command
+
 ```
+---
 
 ## AWS OUTPOSTS (HYBRID CLOUD)
 
 ### List and Describe Outposts
 
 ```css
-aws outposts list-outposts - List all AWS Outposts
-aws outposts get-outpost --outpost-id <outpost-id> - Get Outpost details
-aws outposts get-outpost-instance-types --outpost-id <outpost-id> - List instance types
+aws outposts list-outposts                                          # List all AWS Outposts
+aws outposts get-outpost --outpost-id <outpost-id>                  # Get Outpost details
+aws outposts get-outpost-instance-types --outpost-id <outpost-id>   # List instance types
+
 ```
 
 ### Manage Outpost Resources
 
 ```css
-aws outposts list-sites - List all Outpost sites
-aws outposts list-orders - List Outpost orders
-aws outposts list-outpost-instances --outpost-id <outpost-id> - List EC2 instances
+aws outposts list-sites                                        # List all Outpost sites
+aws outposts list-orders                                       # List Outpost orders
+aws outposts list-outpost-instances --outpost-id <outpost-id>  # List EC2 instances
+
 ```
 
 ### Deploy and Configure Outposts
 
 ```css
-aws outposts create-order --line-items "[{\"catalogItemId\": \"item-id\", \"quantity\": 1}]" --outpost-id <outpost-id> - Order Outpost
-aws outposts update-outpost --outpost-id <outpost-id> --name <new-name> - Update configuration
+aws outposts create-order --line-items "[{\"catalogItemId\": \"item-id\", \"quantity\": 1}]" --outpost-id <outpost-id>  # Order Outpost
+aws outposts update-outpost --outpost-id <outpost-id> --name <new-name>                                                 # Update configuration
+
 ```
 
 ### Networking and Storage on Outposts
 
 ```css
-aws outposts list-outpost-network-devices --outpost-id <outpost-id> - List network devices
-aws s3 ls --outpost-id <outpost-id> - List S3 buckets on Outpost
-aws s3 mb s3://<bucket-name> --outpost-id <outpost-id> - Create S3 bucket in Outpost
+aws outposts list-outpost-network-devices --outpost-id <outpost-id>    # List network devices
+aws s3 ls --outpost-id <outpost-id>                                    # List S3 buckets on Outpost
+aws s3 mb s3://<bucket-name> --outpost-id <outpost-id>                 # Create S3 bucket in Outpost
+
 ```
 
 ### Deploy EC2 in Outposts
 
 ```css
-aws ec2 run-instances --image-id <ami-id> --instance-type <type> --subnet-id <outpost-subnet-id> - Launch EC2 in Outpost
+aws ec2 run-instances --image-id <ami-id> --instance-type <type> --subnet-id <outpost-subnet-id> # Launch EC2 in Outpost
 ```
 
 ### Delete Outposts
