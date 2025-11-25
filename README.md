@@ -74,9 +74,9 @@ kubectl get pods -A                                                      # List 
 ### Amazon ECS (Elastic Container Service)
 
 ```css
-aws ecs list-clusters                                  # List ECS clusters
-aws ecs list-services --cluster my-cluster             # List ECS services
-aws ecs describe-services --cluster my-cluster --services my-service           # Describe an ECS service
+aws ecs list-clusters                                                    # List ECS clusters
+aws ecs list-services --cluster my-cluster                               # List ECS services
+aws ecs describe-services --cluster my-cluster --services my-service     # Describe an ECS service
 ```
 
 ## *IDENTITY & ACCESS MANAGEMENT*
@@ -84,12 +84,12 @@ aws ecs describe-services --cluster my-cluster --services my-service           #
 ### IAM (Identity and Access Management)
 
 ```css
-aws iam list-users                                       # List IAM users
-aws iam create-user --user-name <name>                   # Create a user
-aws iam attach-user-policy --user-name <name> --policy-arn <policy>                              # Attach a policy
-aws iam list-roles`                                      # List IAM roles
-aws iam create-role --role-name <name> --assume-role-policy-document file://policy.json          # Create a role
-aws iam list-policies                                     # List policies
+aws iam list-users                                                                        # List IAM users
+aws iam create-user --user-name <name>                                                    # Create a user
+aws iam attach-user-policy --user-name <name> --policy-arn <policy>                       # Attach a policy
+aws iam list-roles`                                                                       # List IAM roles
+aws iam create-role --role-name <name> --assume-role-policy-document file://policy.json   # Create a role
+aws iam list-policies                                                                     # List policies
 ```
 ---
 ## *NETWORKING*
@@ -122,15 +122,13 @@ aws route53 list-hosted-zones                               # List hosted zones
 ### AWS CloudFormation
 
 ```css
-aws cloudformation list-stacks   # List all stacks
-
+aws cloudformation list-stacks                              # List all stacks
 aws cloudformation create-stack \
   --stack-name my-stack \
-  --template-body file://template.yml   # Create a stack
-
+  --template-body file://template.yml                       # Create a stack
 aws cloudformation deploy \
   --template-file outpost-config.yml \
-  --stack-name my-outpost-stack   # Deploy Outpost resources
+  --stack-name my-outpost-stack                             # Deploy Outpost resources
 
 ```
 
@@ -138,11 +136,9 @@ aws cloudformation deploy \
 
 ```css
 aws autoscaling describe-auto-scaling-groups         # List Auto Scaling groups
-
 aws autoscaling update-auto-scaling-group \
   --auto-scaling-group-name my-asg \
   --desired-capacity 3                               # Update desired capacity
-
 aws autoscaling set-desired-capacity \
   --auto-scaling-group-name my-asg \
   --desired-capacity 2                               # Manually scale group
@@ -155,8 +151,8 @@ aws autoscaling set-desired-capacity \
 ### AWS CodePipeline
 
 ```css
-aws codepipeline list-pipelines                                # List all pipelines
-aws codepipeline start-pipeline-execution --name my-pipeline   # Start a pipeline execution
+aws codepipeline list-pipelines                                 # List all pipelines
+aws codepipeline start-pipeline-execution --name my-pipeline    # Start a pipeline execution
 ```
 
 ### AWS CodeBuild
@@ -170,7 +166,6 @@ aws codebuild start-build --project-name my-project              # Start a build
 
 ```css
 aws deploy list-applications                                      # List all CodeDeploy applications
-
 aws deploy create-deployment \
   --application-name MyApp \
   --deployment-group-name MyDeploymentGroup \
@@ -184,7 +179,7 @@ aws deploy create-deployment \
 ### AWS CloudTrail
 
 ```css
-aws cloudtrail describe-trails                                      # List CloudTrail logs
+aws cloudtrail describe-trails                                       # List CloudTrail logs
 ```
 
 ### AWS Secrets Manager
@@ -197,7 +192,7 @@ aws secretsmanager get-secret-value --secret-id my-secret            #  Retrieve
 ### AWS GuardDuty
 
 ```css
-aws guardduty list-findings                                         # Detect security threats
+aws guardduty list-findings                                           # Detect security threats
 ```
 ---
 
@@ -234,23 +229,22 @@ aws sns publish --topic-arn arn:aws:sns:region:account-id:MyTopic --message "Tes
 
 ### AWS SQS (Simple Queue Service)
 ```css
-aws sqs list-queues                                  # List all SQS queues
+aws sqs list-queues                                                   # List all SQS queues
 
 aws sqs send-message \
   --queue-url https://sqs.region.amazonaws.com/account-id/my-queue \
-  --message-body "Hello World"                          # Send message
+  --message-body "Hello World"                                        # Send message
 ```
 
 ### AWS Step Functions
 
 ```css
-aws stepfunctions list-state-machines                       # List all state machines
-
+aws stepfunctions list-state-machines                                 # List all state machines
 aws stepfunctions start-execution \
   --state-machine-arn arn:aws:states:region:account-id:stateMachine:MyStateMachine  # Start execution
 ```
 ---
-## DATA & ANALYTICS
+## *DATA & ANALYTICS*
 
 ### AWS Glue (ETL Service)
 
@@ -287,9 +281,9 @@ aws outposts get-outpost-instance-types --outpost-id <outpost-id>   # List insta
 ### Manage Outpost Resources
 
 ```css
-aws outposts list-sites                                        # List all Outpost sites
-aws outposts list-orders                                       # List Outpost orders
-aws outposts list-outpost-instances --outpost-id <outpost-id>  # List EC2 instances
+aws outposts list-sites                                          # List all Outpost sites
+aws outposts list-orders                                         # List Outpost orders
+aws outposts list-outpost-instances --outpost-id <outpost-id>    # List EC2 instances
 
 ```
 
@@ -299,7 +293,6 @@ aws outposts list-outpost-instances --outpost-id <outpost-id>  # List EC2 instan
 aws outposts create-order \
   --line-items "[{\"catalogItemId\": \"item-id\", \"quantity\": 1}]" \
   --outpost-id <outpost-id>                                                # Order Outpost
-
 aws outposts update-outpost --outpost-id <outpost-id> --name <new-name>    # Update configuration
 
 ```
@@ -316,7 +309,7 @@ aws s3 mb s3://<bucket-name> --outpost-id <outpost-id>                 # Create 
 ### Deploy EC2 in Outposts
 
 ```css
-aws ec2 run-instances --image-id <ami-id> --instance-type <type> --subnet-id <outpost-subnet-id> # Launch EC2 in Outpost
+aws ec2 run-instances --image-id <ami-id> --instance-type <type> --subnet-id <outpost-subnet-id>   # Launch EC2 in Outpost
 ```
 
 ### Delete Outposts
