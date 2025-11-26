@@ -62,8 +62,7 @@ aws ecr list-repositories                                              # List al
 ```css
 aws eks list-clusters                                                    # List EKS clusters
 aws eks describe-cluster --name my-cluster                               # Describe an EKS cluster
-aws eks create-cluster \
-  --name my-cluster \
+aws eks create-cluster --name my-cluster \
   --role-arn arn:aws:iam::account-id:role/EKSRole \
   --resources-vpc-config subnetIds=subnet-xxxx,securityGroupIds=sg-xxxx  # Create an EKS cluster
 aws eks update-kubeconfig --name my-cluster                              # Configure kubectl to use the EKS cluster
@@ -122,26 +121,22 @@ aws route53 list-hosted-zones                               # List hosted zones
 ### AWS CloudFormation
 
 ```css
-aws cloudformation list-stacks                              # List all stacks
-aws cloudformation create-stack \
-  --stack-name my-stack \
-  --template-body file://template.yml                       # Create a stack
-aws cloudformation deploy \
-  --template-file outpost-config.yml \
-  --stack-name my-outpost-stack                             # Deploy Outpost resources
+aws cloudformation list-stacks                                        # List all stacks
+aws cloudformation create-stack --stack-name my-stack \
+  --template-body file://template.yml                                 # Create a stack
+aws cloudformation deploy --template-file outpost-config.yml \
+  --stack-name my-outpost-stack                                       # Deploy Outpost resources
 
 ```
 
 ### AWS Auto Scaling
 
 ```css
-aws autoscaling describe-auto-scaling-groups         # List Auto Scaling groups
-aws autoscaling update-auto-scaling-group \
-  --auto-scaling-group-name my-asg \
-  --desired-capacity 3                               # Update desired capacity
-aws autoscaling set-desired-capacity \
-  --auto-scaling-group-name my-asg \
-  --desired-capacity 2                               # Manually scale group
+aws autoscaling describe-auto-scaling-groups                                   # List Auto Scaling groups
+aws autoscaling update-auto-scaling-group --auto-scaling-group-name my-asg \
+  --desired-capacity 3                                                         # Update desired capacity
+aws autoscaling set-desired-capacity --auto-scaling-group-name my-asg \
+  --desired-capacity 2                                                         # Manually scale group
 
 ```
 ---
@@ -166,8 +161,7 @@ aws codebuild start-build --project-name my-project              # Start a build
 
 ```css
 aws deploy list-applications                                      # List all CodeDeploy applications
-aws deploy create-deployment \
-  --application-name MyApp \
+aws deploy create-deployment --application-name MyApp \
   --deployment-group-name MyDeploymentGroup \
   --s3-location bucket=my-bucket,key=app.zip,bundleType=zip       # Deploy application
 
@@ -201,7 +195,7 @@ aws guardduty list-findings                                           # Detect s
 ### CloudWatch
 
 ```css
-aws cloudwatch list-metrics                   # List available metrics
+aws cloudwatch list-metrics                                  # List available metrics
 
 aws cloudwatch put-metric-alarm \
   --alarm-name cpu-high \
@@ -209,13 +203,12 @@ aws cloudwatch put-metric-alarm \
   --namespace AWS/EC2 \
   --statistic Average \
   --period 300 \
-  --threshold 80                              # Create alarm
+  --threshold 80                                              # Create alarm
 
-aws logs describe-log-groups                  # List all log groups
+aws logs describe-log-groups                                  # List all log groups
 
-aws logs get-log-events \
-  --log-group-name my-log-group \
-  --log-stream-name my-log-stream             # Retrieve log events
+aws logs get-log-events --log-group-name my-log-group \
+  --log-stream-name my-log-stream                             # Retrieve log events
 ```
 ---
 ## *MESSAGING & WORKFLOW*
@@ -239,9 +232,9 @@ aws sqs send-message \
 ### AWS Step Functions
 
 ```css
-aws stepfunctions list-state-machines                                 # List all state machines
+aws stepfunctions list-state-machines                                                # List all state machines
 aws stepfunctions start-execution \
-  --state-machine-arn arn:aws:states:region:account-id:stateMachine:MyStateMachine  # Start execution
+  --state-machine-arn arn:aws:states:region:account-id:stateMachine:MyStateMachine   # Start execution
 ```
 ---
 ## *DATA & ANALYTICS*
